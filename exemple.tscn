@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://b047c4ncgbywn"]
+
+[ext_resource type="Shader" path="res://pixel_art.gdshader" id="1_oewel"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxng"]
+sky_top_color = Color(0.91664, 0.91664, 0.91664, 1)
+sky_horizon_color = Color(0.787721, 0.501542, 0.341566, 1)
+sky_curve = 0.522331
+sky_energy_multiplier = 1.5
+ground_bottom_color = Color(0.70119, 0.448519, 0.359378, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+ground_curve = 0.380548
+
+[sub_resource type="Sky" id="Sky_e3iei"]
+sky_material = SubResource("ProceduralSkyMaterial_utxng")
+
+[sub_resource type="Environment" id="Environment_8fp55"]
+background_mode = 2
+sky = SubResource("Sky_e3iei")
+tonemap_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6q33p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wataa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paa4v"]
+render_priority = 0
+shader = ExtResource("1_oewel")
+
+[sub_resource type="QuadMesh" id="QuadMesh_arynj"]
+lightmap_size_hint = Vector2i(12, 12)
+material = SubResource("ShaderMaterial_paa4v")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="Exemple" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8fp55")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_6q33p")
+mesh = SubResource("BoxMesh_wataa")
+
+[node name="ScreenQuad" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_arynj")

@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://kkv5eefongqs"]
+
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_mrgki"]
+[ext_resource type="AudioStream" uid="uid://bb87q1bxo1rpo" path="res://footsteps-dirt-gravel-6823.mp3" id="2_6vlyj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7qo1p"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eh6bx"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2y3fa"]
+random_pitch = 1.39
+streams_count = 1
+stream_0/stream = ExtResource("2_6vlyj")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1hncn"]
+streams_count = 1
+stream_0/stream = ExtResource("2_6vlyj")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_mrgki")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_7qo1p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_eh6bx")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53307, 0)
+stream = SubResource("AudioStreamRandomizer_2y3fa")
+volume_db = 7.143
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_1hncn")
